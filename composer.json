@@ -1,0 +1,23 @@
+{
+    "name": "cb-master/cb-seeeion",
+    "description": "A PHP Framework",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "CBM\\Core\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Showket Ahmed",
+            "email": "riyadhtayf@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "cb-master/cbm-core": "dev-main",
+        "cb-master/cbm-model": "dev-main",
+        "cb-master/cbm-session": "dev-main"
+    }
+}
