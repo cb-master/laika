@@ -11,5 +11,12 @@
 // Forbidden Access
 defined('ROOTPATH') || http_response_code(403).die('403 Forbidden Access!');
 
+use CBM\Core\Support\Directory;
+
 // Require Autoload
 require_once(ROOTPATH."/vendor/autoload.php");
+
+// Require All Config Files
+array_filter(Directory::configs(), function($path){
+    require_once($path);
+});
