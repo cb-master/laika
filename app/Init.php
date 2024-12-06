@@ -1,23 +1,25 @@
 <?php
 /**
- * APP Name:        Laika Framework Core
- * APP Provider:    Showket Ahmed
- * APP Link:        https://cloudbillmaster.com
- * APP Contact:     riyadtayf@gmail.com
- * APP Version:     1.0.0
- * APP Company:     Cloud Bill Master Ltd.
+ * Name:                Laika Framework
+ * Author:              Showket Ahmed
+ * Uri:                 https://cloudbillmaster.com
+ * Email:               riyadtayf@gmail.com
+ * Version:             1.0.0
+ * Provider:            Cloud Bill Master Ltd.
+ * PHP Version Required: 8.2.0
  */
 
 // Forbidden Access
 defined('ROOTPATH') || http_response_code(403).die('403 Forbidden Access!');
 
 use CBM\Core\Support\Directory;
+use CBM\Core\Support\Meta;
 use CBM\Core\Response\Response;
 
 // Require Autoload
 require_once(ROOTPATH."/vendor/autoload.php");
 
-// Set Headers
+// Set Response Headers
 Response::header();
 
 // Require All Config Files
