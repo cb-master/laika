@@ -36,4 +36,10 @@ define('APP_NAME', 'Laika');
  */
 define('ENCRYPTION_METHOD', 'AES-256-CBC');
 
-
+// Define Debug Mode
+/**
+ * 
+ * @param DEBUG - Default is false
+ * 
+ */
+define('DEBUG', true);

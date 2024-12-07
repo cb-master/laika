@@ -26,3 +26,18 @@ Response::header();
 array_filter(Directory::configs(), function($path){
     require_once($path);
 });
+
+// Debug Mode
+if(DEBUG)
+{
+    ini_set('display_errors', 1);
+    ini_set('error_reporting', E_ALL);
+}else{
+    ini_set('display_errors', 0);
+    ini_set('error_reporting', 0);
+}
+
+// Handling Errors
+set_error_handler('error_handler');
+set_exception_handler('exception_handler');
+register_shutdown_function('shutdown_handler');
