@@ -5,7 +5,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "CBM\\Core\\": "src/"
+            "CBM\\App\\": "src/"
         }
     },
     "authors": [

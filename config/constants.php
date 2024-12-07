@@ -11,8 +11,16 @@
 // Forbidden Access
 defined('ROOTPATH') || http_response_code(403).die('403 Forbidden Access!');
 
+// Define Admin Slug
+/**
+ * 
+ * @param ADMIN - Default is admin
+ * 
+ */
+define('ADMIN', 'admin');
 
-// Define Database Driver
+
+// Define Application Name
 /**
  * 
  * @param APP_NAME - Default is Laika
@@ -27,4 +35,5 @@ define('APP_NAME', 'Laika');
  * 
  */
 define('ENCRYPTION_METHOD', 'AES-256-CBC');
+
 
