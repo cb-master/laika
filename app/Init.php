@@ -13,7 +13,6 @@
 defined('ROOTPATH') || http_response_code(403).die('403 Forbidden Access!');
 
 use CBM\Core\Support\Directory;
-use CBM\Core\Support\Meta;
 use CBM\Core\Response\Response;
 
 // Require Autoload

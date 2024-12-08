@@ -7,120 +7,122 @@
  * APP Version:     1.0.0
  * APP Company:     Cloud Bill Master Ltd.
  */
+use CBM\Core\Support\Convert;
+use CBM\Core\Helper;
+use CBM\Core\Option;
 
-use CBM\CoreHelper\CoreException;
-
-// Exception Handler
-function exception_handler(Throwable $e)
+// Dump Data & Die
+function dd($data, bool $die = false):void
 {
-    CoreException::set($e->getMessage(), $e->getCode(), $e->getFile(), $e->getLine());
+    echo '<pre style="background-color:#000;color:#fff;">';
+    var_dump($data);
+    echo '</pre>';
+    $die ? die() : $die;
 }
 
-// Exception Handler
-function error_handler($severity, $message, $filename, $lineno)
+// Show Data & Die
+function show($data, bool $die = false):void
 {
-    if($severity){
-        CoreException::set($message, 1000, $filename, $lineno);
-    }
+    echo '<pre style="background-color:#000;color:#fff;">';
+    print_r($data);
+    echo '</pre>';
+    $die ? die() : $die;
 }
 
-// Shutdown Function
-function shutdown_handler()
+// To JSON
+/**
+ * @param mixed $property - Required Argument.
+ * @param int $type - Default Value is JSON_FORCE_OBJECT | JSON_NUMERIC_CHECK | JSON_PRETTY_PRINT.
+ */
+function toJson(array $array, $type = JSON_FORCE_OBJECT | JSON_NUMERIC_CHECK | JSON_PRETTY_PRINT):string
 {
-    $e = error_get_last();
-    $types = [E_ERROR, E_PARSE, E_CORE_ERROR, E_CORE_WARNING, E_COMPILE_ERROR, E_COMPILE_WARNING, E_RECOVERABLE_ERROR];
-    if($e && in_array($e['type'], $types)){
-        CoreException::set($e['message'], 1000, $e['file'], $e['line']);
+    return Convert::toJson($array, $type);
+}
+
+// To Array
+/**
+ * @param mixed $property - Required Argument
+ */
+function toArray(mixed $property):array
+{
+    return Convert::toArray($property);
+}
+
+// To Object
+/**
+ * @param mixed $property - Required Argument
+ */
+function toObject(mixed $property):object
+{
+    return Convert::toObject($property);
+}
+
+// Convert To Float Number
+/**
+ * @param int|string|float|null $number - Required Argument
+ * @param int|string $decimal - Default is 2
+ * @param string $thousands_separator - Default is Blank String ''
+ */
+function toDecinal(int|string|float|null $number, int|string $decimal = 2, string $thousands_separator = ''):string
+{
+    return Convert::toDecinal($number, $decimal, $thousands_separator);
+}
+
+// Convert to Price
+function toPrice(string|int|float $price = NULL, int|string $decimal = 2):string
+{
+    $decimal = (int) $decimal;
+    $price = toDecinal($price, $decimal);
+    return Option::get('currencypfx') . $price;
+}
+
+// Show Date in a Format
+function toDate(?string $date)
+{
+    $date = is_string($date) ? $date : time();
+    if($date){
+        return Dates::to_date($date);
     }
-    
-    // Show Errors if Exist
-    $errors = CoreException::errors();
-    if(!empty($errors)){
-        http_response_code(500);
-        $html = "<style>
-        body{
-            position:relative;
-            margin:0;
+    return Lang::$noDate;
+}
+
+// Local Date
+function localDateTime(?string $datetime)
+{
+    if($datetime){
+        $str = strtotime($datetime);
+        return date('Y-m-d\TH:i:s', $str);
+    }
+    return '0000-00-00T00:00:00';
+}
+
+// Check Staff Has Access
+function access(string $access):bool
+{
+    $accessList = json_decode(App::load()->session->get('admin_access_list', ADMIN));
+    return $accessList->$access ?? false;
+}
+
+// Staff Has Permission "Comma Separated Value"
+function hasPermission(string $access, string $location = '')
+{
+    $permissions = explode(',', $access);
+    foreach($permissions as $permission)
+    {
+        if(!access(trim($permission)))
+        {
+            if(str_contains($permission, 'view')){
+                setMessage(LANG::$noViewPermission, false);
+            }elseif(str_contains($permission, 'add')){
+                setMessage(LANG::$noAddPermission, false);
+            }elseif(str_contains($permission, 'edit')){
+                setMessage(LANG::$noEditPermission, false);
+            }elseif(str_contains($permission, 'remove')){
+                setMessage(LANG::$noRemovePermission, false);
+            }else{
+                setMessage(LANG::$noPermission, false);
+            }
+            redirect($location);
         }
-            div{
-                text-align:left!important;
-            }
-            /* PHP Error CSS Start */
-            .err-box{
-                display:block;
-                overflow-x:auto;
-                font-family: monospace;
-                background:#f6e0e0!important;
-                position:absolute!important;
-                top:0px!important;
-                width:100%;
-                height:100vh;
-                left:0px!important;
-                z-index:9999999!important;
-            }
-            .err-contents{
-                margin:auto!important;
-                width:80%!important;
-            }
-            .err-box h2{
-                font-size:28px;
-                text-transform:uppercase;
-                text-align:center;
-                color:#a50404!important;
-                margin-top:100px!important;
-            }
-            .table{
-                width:100%;
-            }
-            table{
-                color:#a50404!important;
-                text-align:left;
-                width:100%;
-            }
-            th{
-                font-size:15px;
-                padding: 10px 5px;
-                font-weight:bold;
-                text-transform:uppercase;
-            }
-            td{
-                min-width:20%;
-                max-width:100%;
-                font-size:14px!important;
-                margin-bottom:5px;
-                padding:5px;
-            }
-            table,th,td{
-                border:1px solid #a50404;
-                border-collapse: collapse;
-            }
-            /* PHP Error CSS End */
-        </style>
-        <div class=\"err-box\">
-            <div class=\"err-contents\">
-                <h2>APP ERROR</h2>
-                <div class='table'>
-                    <table>
-                        <tr>
-                            <th>Code</th>
-                            <th>Messages</th>
-                            <th>File</th>
-                            <th>Line</th>
-                        </tr>\n";
-                        foreach($errors as $error):
-                            $html .= "<tr>
-                            <td>{$error['code']}</td>
-                            <td>{$error['message']}</td>
-                            <td>{$error['file']}</td>
-                            <td>{$error['line']}</td>
-                        </tr>";
-                        endforeach;
-                        
-                    $html .= "</table>
-                </div>
-            </div>
-        </div>";
-    echo $html;
-    // die;
     }
 }
