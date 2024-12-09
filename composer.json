@@ -14,10 +14,10 @@
             "email": "riyadhtayf@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "require": {
-        "cb-master/cbm-core": "dev-main",
-        "cb-master/cbm-model": "dev-main",
-        "cb-master/cbm-session": "dev-main"
+        "cb-master/cbm-core": "^1.0",
+        "cb-master/cbm-model": "^1.0",
+        "cb-master/cbm-session": "^1.0"
     }
 }
