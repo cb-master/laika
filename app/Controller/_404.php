@@ -11,14 +11,19 @@
 // Namespace
 namespace CBM\App\Controller;
 
+// Forbidden Access
+defined('ROOTPATH') || http_response_code(403).die('403 Forbidden Access!');
+
+use CBM\App\Controller;
 use CBM\Core\Response\Response;
 
-class _404
+
+class _404 Extends Controller
 {
     public function index()
     {
-        // Set HTTP Response Code
-        Response::set(404);
-        echo 'Page Not Found';
+        $data['title'] = '404 Page Not Found';
+
+        $this->view('_404', $data);
     }
 }
