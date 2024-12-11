@@ -44,29 +44,16 @@ class Controller
      * @param array $data - Required Argument as datas to pass array keys as variable in view file
      * @param string $for - Default is null to load Front View. For Backend like admin or panel use constant ADMIN or other custom CONSTANTS as string
      */
-    protected function view(string $view, array $data = [], ?string $for = 'front'):void
+    protected function view(string $view, array $data = []):void
     {
-        $for = strtolower($for);
         // Extract Data to the View
         extract($data);
+
         // Get Theme Directory
-        $path = Uri::path(ROOTPATH . "/views/{$for}");
-
-        // Check Theme Name Exist in DB
-        $str = "{$for}Theme";
-
-        // Get Theme Name
-        $theme = Option::get($str);
-        if(!$theme){
-            $theme = "default";
-            Option::set($str, $theme);
-        }
-
-        // Theme Directory
-        $theme_directory = Uri::path("{$path}/{$theme}");
+        $path = Uri::path(ROOTPATH . "/views/");
 
         // Theme File
-        $view = "{$theme_directory}/{$view}.php";
+        $view = ROOTPATH . "/views/{$view}.php";
 
         if(!file_exists($view)){
             throw new Error("{$view} File Does Not Exist", 80000);

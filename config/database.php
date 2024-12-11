@@ -11,43 +11,57 @@
 // Forbidden Access
 defined('ROOTPATH') || http_response_code(403).die('403 Forbidden Access!');
 
+return [
+    //// Return Database Connection Details
+    /**
+     * Maria DB
+     */
 
-// Define Database Driver
-define('DB_DRIVER', 'mariadb');
+    // DB Driver
+    'driver'     =>  'mariadb',
 
-// Define Database Host
-define('DB_HOST', 'localhost');
+    // DB Host
+    'host'       =>  'localhost',
 
-// Define Database Port
-define('DB_PORT', 3306);
+    // DB Port
+    'port'       =>  3306,
 
-// Define Database Name
-define('DB_NAME', 'test');
+    // DB Name
+    'name'       =>  'test',
 
-// Define Database User
-define('DB_USER', 'root');
+    // DB User
+    'user'       =>  'root',
 
-// Define Database User
-define('DB_PASSWORD', '');
-
-// Define Database Fetch Object
-define('DB_FETCH_OBJECT', true);
+    // DB Password
+    'password'   =>  '',
 
 
+    /**
+     * Mysql DB
+     */
 
-////////////////////////////////////////////
-////////////////////////////////////////////
+    // // DB Driver
+    // 'driver'     =>  'mysql',
 
-//// PLEASE DO NOT EDIT AFTER THIS LINE ////
+    // // DB Host
+    // 'host'       =>  'localhost',
 
-////////////////////////////////////////////
-////////////////////////////////////////////
-CBM\Model\Model::config([
-    'driver'    =>  DB_DRIVER,
-    'host'      =>  DB_HOST,
-    'port'      =>  DB_PORT,
-    'name'      =>  DB_NAME,
-    'user'      =>  DB_USER,
-    'password'  =>  DB_PASSWORD,
-    'object'    =>  DB_FETCH_OBJECT
-]);
+    // // DB Port
+    // 'port'       =>  3306,
+
+    // // DB Name
+    // 'name'       =>  'test',
+
+    // // DB User
+    // 'user'       =>  'root',
+
+    // // DB Password
+    // 'password'   =>  ''
+
+
+
+
+
+    // DB Fetch as Object
+    'object'        =>  true
+];
