@@ -9,18 +9,12 @@
  */
 
 // Namespace
-namespace CBM\App\Controller;
+namespace CBM\App\Middleware;
 
 // Forbidden Access
 defined('ROOTPATH') || http_response_code(403).die('403 Forbidden Access!');
 
-use CBM\App\Controller;
-
-class Client Extends Controller
+class Sample
 {
-    public function index()
-    {
-        $data['title'] = 'Client Page';
-        // $this->view('viewfile', $data);
-    }
+    // Start Writing Your Methods Here
 }

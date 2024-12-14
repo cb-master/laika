@@ -16,26 +16,13 @@ defined('ROOTPATH') || http_response_code(403).die('403 Forbidden Access!');
 
 use CBM\App\Controller;
 
-/**
-* class Index Extends Controller
-* {
-*    public function index()
-*    {
-*        $data['title'] = 'Laika Home Page';
-
-*        //// For Middleware
-*        // $this->middleware('class', 'method', []);
-*        //// For View
-*        $this->view('index', $data);
-*    }
-* }
-*/
-
-class Index Extends Controller
+class Sample Extends Controller
 {
     public function index()
     {
-        $data['title'] = 'Laika Home Page';
-        $this->view('index', $data);
+        $data['title'] = Sample Controller Page';
+        echo "This is {class} Page";
+        // $this->middleware('class', 'method', []);
+        // $this->view('viewfile', $data);
     }
 }

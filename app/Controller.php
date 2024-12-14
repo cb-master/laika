@@ -15,7 +15,6 @@ namespace CBM\App;
 defined('ROOTPATH') || http_response_code(403).die('403 Forbidden Access!');
 
 use CBM\CoreHelper\Error;
-use CBM\Core\Option;
 use CBM\Core\Uri\Uri;
 
 class Controller
@@ -25,7 +24,7 @@ class Controller
      * @param string $class - Required Argument as Middleware Class Name Like 'Client'.
      * @param string $method - Required Argument as Middleware Method Name.
      */
-    protected function middleware(string $class, string $method):void
+    protected function middleware(string $class, string $method, array $args = []):void
     {
         // Create Middleware Folder if Does Not Exist
         if(!file_exists(ROOTPATH.'/app/Middleware')){
@@ -34,7 +33,7 @@ class Controller
         // Load Middleware if Exist
         $class = "\\CBM\\App\\Middleware\\{$class}";
         if(class_exists($class) && (method_exists($class, $method))){
-            call_user_func([new $class, $method]);
+            call_user_func([new $class, $method], $args);
         }
     }
 

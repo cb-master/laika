@@ -8,7 +8,7 @@
  * APP Version:     1.0.0
  * APP Company:     Cloud Bill Master Ltd.
  */
-use CBM\CoreHelper\Console;
+use CBM\CoreHelper\Console\Console;
 
 // Define Console Path
 define('CONSOLEPATH', __DIR__);
@@ -20,6 +20,4 @@ if(PHP_SAPI !== 'cli'){
 
 require_once(CONSOLEPATH.'/vendor/autoload.php');
 
-$console = new Console($argv);
-
-$console->run();
+Console::run($argv);
