@@ -11,8 +11,6 @@
 // Namespace
 namespace CBM\App\Controller;
 
-use CBM\Core\Support\Meta;
-
 // Forbidden Access
 defined('ROOTPATH') || http_response_code(403).die('403 Forbidden Access!');
 
@@ -37,7 +35,6 @@ class Index Extends Controller
 {
     public function index()
     {
-        show(Meta::version(ROOTPATH.'/includes/Info.php'));
         $data['title'] = 'Laika Home Page';
         $this->view('index', $data);
     }
