@@ -7,6 +7,10 @@
  * APP Version:     1.0.0
  * APP Company:     Cloud Bill Master Ltd.
  */
+
+// Forbidden Access
+defined('ROOTPATH') || http_response_code(403).die('403 Forbidden Access!');
+
 use CBM\Core\Support\Convert;
 use CBM\Core\Helper;
 use CBM\Core\Option;

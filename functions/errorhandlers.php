@@ -8,6 +8,9 @@
  * APP Company:     Cloud Bill Master Ltd.
  */
 
+// Forbidden Access
+defined('ROOTPATH') || http_response_code(403).die('403 Forbidden Access!');
+
 use CBM\CoreHelper\Error;
 use CBM\CoreHelper\Resource;
 

@@ -24,16 +24,15 @@ Response::header();
 
 // Require All Config Environment Files
 foreach(Directory::configs() as $path){
-    $configs[basename($path, '.php')] = require_once($path);
+    $configs[basename($path, '.php')] = require($path);
 }
 // Set Config Environments
 Config::set($configs);
 
 // Require All Config Files
 array_filter(Directory::functions(), function($path){
-    require_once($path);
+    require($path);
 });
-
 
 // Get Db Connection File
 require_once(__DIR__.'/connection.php');
