@@ -18,6 +18,6 @@ if(PHP_SAPI !== 'cli'){
     die;
 }
 
-require_once(CONSOLEPATH.'/vendor/autoload.php');
+require_once(CONSOLEPATH.'/includes/Console.php');
 
 Console::run($argv);

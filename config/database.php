@@ -9,7 +9,7 @@
  */
 
 // Forbidden Access
-defined('ROOTPATH') || http_response_code(403).die('403 Forbidden Access!');
+defined('ROOTPATH') || defined('CONSOLEPATH') || http_response_code(403).die('403 Forbidden Access!');
 
 return [
     //// Return Database Connection Details
