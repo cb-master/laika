@@ -1,5 +1,5 @@
 # Laika PHP Framework
-Laika is a lightweight and versatile PHP framework designed for building robust web applications. Whether you're creating a dynamic website, a comprehensive admin panel, or a custom application, Laika offers the flexibility and tools you need to get the job done efficiently.
+Laika is a lightweight and versatile PHP framework designed for building robust web applications. Whether you're creating a dynamic website, a comprehensive admin panel, or a custom application, Laika offers the flexibility and tools you need to get the job done efficiently. >>> [Wiki](https://github.com/cb-master/laika/wiki)
 
 ## Features
 * **MVC Architecture**: Simplifies development with a clear separation of concerns.
