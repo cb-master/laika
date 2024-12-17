@@ -14,7 +14,9 @@ defined('ROOTPATH') || http_response_code(403).die('403 Forbidden Access!');
 
 use CBM\Core\Support\Directory;
 use CBM\Core\Response\Response;
+use CBM\Core\Option;
 use CBM\Core\Config;
+use CBM\Session\Session;
 
 // Require Autoload
 require_once(ROOTPATH."/vendor/autoload.php");
@@ -42,6 +44,11 @@ if(!Config::get('defaults', 'debug'))
 {
     ini_set('display_errors', 1);
     ini_set('error_reporting', E_ALL);
+}
+
+// Set Session In DB or Not. Default is In DB
+if(Option::get('dbsession') != 'yes'){
+    Session::session_in_db(false);
 }
 
 // Handling Errors

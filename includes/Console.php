@@ -13,6 +13,7 @@
 defined('CONSOLEPATH') || http_response_code(403).die('403 Forbidden Access!');
 
 // Get Database Configs
+$configs[basename(CONSOLEPATH.'/config/app.php', '.php')] = require(CONSOLEPATH.'/config/app.php');
 $configs[basename(CONSOLEPATH.'/config/database.php', '.php')] = require(CONSOLEPATH.'/config/database.php');
 
 // Require Autoload
