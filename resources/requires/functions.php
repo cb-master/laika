@@ -12,7 +12,7 @@
 defined('ROOTPATH') || http_response_code(403).die('403 Forbidden Access!');
 
 use CBM\Core\Support\Convert;
-use CBM\Core\Helper;
+use CBM\Core\Filter;
 use CBM\Core\Option;
 
 // Dump Data & Die
@@ -129,4 +129,16 @@ function hasPermission(string $access, string $location = '')
             redirect($location);
         }
     }
+}
+
+// Add Filter
+function add_filter(string $filter, callable $callback)
+{
+    return Filter::add($filter, $callback);
+}
+
+// Add Filter
+function do_filter(string $filter, mixed ...$args)
+{
+    return Filter::action($filter, ...$args);
 }

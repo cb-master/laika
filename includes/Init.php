@@ -32,7 +32,7 @@ foreach(Directory::configs() as $path){
 Config::set($configs);
 
 // Require All Config Files
-array_filter(Directory::functions(), function($path){
+array_filter(Directory::requires(), function($path){
     require($path);
 });
 
