@@ -1,11 +1,8 @@
 <?php
 /**
- * APP Name:        Laika Framework Core
- * APP Provider:    Showket Ahmed
- * APP Link:        https://cloudbillmaster.com
- * APP Contact:     riyadtayf@gmail.com
- * APP Version:     1.0.0
- * APP Company:     Cloud Bill Master Ltd.
+ * Project: Laika MVC Framework
+ * Author Name: Showket Ahmed
+ * Author Email: riyadhtayf@gmail.com
  */
 
 // Forbidden Access
@@ -14,6 +11,8 @@ defined('ROOTPATH') || http_response_code(403).die('403 Forbidden Access!');
 use CBM\Core\Support\Convert;
 use CBM\Core\Filter;
 use CBM\Core\Option;
+use CBM\Session\Session;
+use CBM\Core\Helper;
 
 // Dump Data & Die
 function dd($data, bool $die = false):void
@@ -73,72 +72,65 @@ function toDecinal(int|string|float|null $number, int|string $decimal = 2, strin
 }
 
 // Convert to Price
-function toPrice(string|int|float $price = NULL, int|string $decimal = 2):string
+/**
+ * @param int|string|float|null $price - Default is null
+ * @param int|string $decimal - Default is 2
+ * @return string
+ */
+function toPrice(string|int|float $price = null, int $decimal = 2):string
 {
-    $decimal = (int) $decimal;
     $price = toDecinal($price, $decimal);
     return Option::get('currencypfx') . $price;
 }
 
-// Show Date in a Format
-function toDate(?string $date)
-{
-    $date = is_string($date) ? $date : time();
-    if($date){
-        return Dates::to_date($date);
-    }
-    return Lang::$noDate;
-}
-
 // Local Date
+/**
+ * @param string|null $date - Default is null
+ */
 function localDateTime(?string $datetime)
 {
-    if($datetime){
-        $str = strtotime($datetime);
-        return date('Y-m-d\TH:i:s', $str);
-    }
-    return '0000-00-00T00:00:00';
+    return $datetime ? date('Y-m-d\TH:i:s', strtotime($datetime)) : '0000-00-00T00:00:00';
+}
+
+// Redirect
+/**
+ * @param string $slug - Required Argument
+ * @param int $response - Default is 302
+ */
+function redirect(string $slug, int $response = 302):void
+{
+    Helper::redirect($slug, $response);
 }
 
 // Check Staff Has Access
-function access(string $access):bool
+/**
+ * @param string $access - Required Argument
+ * @param string $for - Required Argument. Default is 'staff'
+ */
+function access(string $access, string $for):bool
 {
-    $accessList = json_decode(App::load()->session->get('admin_access_list', ADMIN));
-    return $accessList->$access ?? false;
+    $accessList = json_decode(Session::get('access_list', $for));
+    return $accessList->$access ?? $accessList[$access] ?? false;
 }
 
 // Staff Has Permission "Comma Separated Value"
-function hasPermission(string $access, string $location = '')
+function hasPermission(string $access, string $for, string $slug = '')
 {
-    $permissions = explode(',', $access);
-    foreach($permissions as $permission)
+    if(!access(trim($access), $for))
     {
-        if(!access(trim($permission)))
-        {
-            if(str_contains($permission, 'view')){
-                setMessage(LANG::$noViewPermission, false);
-            }elseif(str_contains($permission, 'add')){
-                setMessage(LANG::$noAddPermission, false);
-            }elseif(str_contains($permission, 'edit')){
-                setMessage(LANG::$noEditPermission, false);
-            }elseif(str_contains($permission, 'remove')){
-                setMessage(LANG::$noRemovePermission, false);
-            }else{
-                setMessage(LANG::$noPermission, false);
-            }
-            redirect($location);
-        }
+        Message::set('Permission Denied! Please Contact Administrator.', false);
+        Helper::redirect($slug);
     }
 }
 
 // Add Filter
-function add_filter(string $filter, callable $callback)
+function add_action(string $filter, callable $callback)
 {
     return Filter::add($filter, $callback);
 }
 
 // Add Filter
-function do_filter(string $filter, mixed ...$args)
+function do_action(string $filter, mixed ...$args)
 {
-    return Filter::action($filter, ...$args);
+    return Filter::do($filter, ...$args);
 }
