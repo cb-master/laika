@@ -27,13 +27,13 @@ foreach(Directory::configs() as $path){
 // Set Config Environments
 Config::set($configs);
 
+// Get Db Connection File
+require_once(__DIR__.'/connection.php');
+
 // Require All Config Files
 array_filter(Directory::requires(), function($path){
     require($path);
 });
-
-// Get Db Connection File
-require_once(__DIR__.'/connection.php');
 
 // Display Error
 if(!Config::get('defaults', 'debug'))
