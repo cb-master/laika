@@ -124,13 +124,25 @@ function hasPermission(string $access, string $for, string $slug = '')
 }
 
 // Add Filter
-function add_action(string $filter, callable $callback)
+function add_filter(string $filter, callable $callback):void
 {
-    return Filter::add($filter, $callback);
+    Filter::add_filter($filter, $callback);
 }
 
 // Add Filter
-function do_action(string $filter, mixed ...$args)
+function do_filter(string $filter, mixed ...$args):mixed
 {
-    return Filter::do($filter, ...$args);
+    return Filter::do_filter($filter, ...$args);
+}
+
+// Add Filter
+function add_action(string $filter, callable $callback):void
+{
+    Filter::add_action($filter, $callback);
+}
+
+// Add Filter
+function do_action(string $filter, mixed ...$args):mixed
+{
+    return Filter::do_action($filter, ...$args);
 }
