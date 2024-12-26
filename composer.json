@@ -23,6 +23,7 @@
         "cb-master/cbm-core": "^1.0",
         "cb-master/cbm-model": "^1.0",
         "cb-master/cbm-session": "^1.0",
+        "cb-master/html-builder": "dev-main",
         "php": ">=8.1"
     }
 }
