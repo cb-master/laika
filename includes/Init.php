@@ -28,7 +28,7 @@ foreach(Directory::requires('config', 'php') as $path){
 Config::set($configs);
 
 // Get Db Connection File
-require_once(__DIR__.'/connection.php');
+require_once(__DIR__.'/Connection.php');
 
 // Require Files
 array_filter(Directory::requires('resources/requires', 'php'), function($path){
