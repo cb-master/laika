@@ -5,7 +5,7 @@
  * Author Email: riyadhtayf@gmail.com
  */
 
- // Define Rootpath
+ // Define ROOTPATH
 define('ROOTPATH', __DIR__);
 
 use CBM\Core\App\App;
